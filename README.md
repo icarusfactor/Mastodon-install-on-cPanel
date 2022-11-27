@@ -88,6 +88,21 @@ systemctl enable postgresql-11
 systemctl start postgresql-11
 ```
 
+Step 8.5 :
+Login to the PostgreSQL shell:live
+Create a new user for the Mastodon instance that is able to create DB tables:
+
+```
+sudo -u postgres psql
+
+postgres=# CREATE USER mastodon CREATEDB;
+CREATE ROLE
+\q
+
+ALTER USER mastodon WITH PASSWORD 'jw8s0F4';
+```
+
+
 Step 9:
 
 Now switch to the home directory of the Mastodon user and clone the application repository files from Github.
