@@ -19,7 +19,7 @@ yum install curl git gpg gcc git-core zlib zlib-devel gcc-c++ patch readline rea
 
 Step 2:
 
-Install a few more dependencies which are required to build the Ruby installation and other dependencies. You may have to rmeove(*yum remove duplicate_package_name*)duplicates from conflicts with other package to install below.
+Install a few more dependencies which are required to build the Ruby installation and other dependencies. You may have to remove(*yum remove duplicate_package_name*)duplicates from conflicts with other package to install below.
 ```
 yum  groupinstall 'Development Tools'
 ```
