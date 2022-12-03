@@ -104,9 +104,12 @@ yarn install --pure-lockfile
 Step 10:
 Inside WHM/cPanel you can create a separate cPanel account with different user or in this example as a sub-directory of the primary account. 
 Follow the below breadcrumb path in WHM/cPanel to create it.  
+```
 WHM -> List Accounts -> User cPanel -> Domains -> Create A New Domain. 
-Here we will enter the fully qualified domain name,in my case. *masotodon.spotcheckit.org*
+Create a New Domain
+masotodon.spotcheckit.org
 Then click "Submit"
+```
 
 Step 10:
 
