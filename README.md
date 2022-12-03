@@ -102,16 +102,19 @@ yarn install --pure-lockfile
 ```
 
 Step 10:
+
 Inside WHM/cPanel you can create a separate cPanel account with different user or in this example as a sub-directory of the primary account. 
 Follow the below breadcrumb path in WHM/cPanel to create it.  
 ```
 WHM -> List Accounts -> User cPanel -> Domains -> Create A New Domain. 
 Create a New Domain
-masotodon.spotcheckit.org
+mastodon.spotcheckit.org
 Then click "Submit"
+
+Should be able to check the new url at https://mastodon.spotcheckit.org
 ```
 
-Step 10:
+Step 11:
 
 Now switch to the home directory of the Mastodon user and clone the application repository files from Github.
 ```
@@ -122,11 +125,11 @@ git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
 gem install bundler
 ```
 
-Step 11:
+Step 12:
 
 Change the cPanel account document root from the cPanel -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update".
 
-Step 12:
+Step 13:
 
 Make modification to Gem files for current postgresql gem that will work with Postgresaql version 11 and install needed support libaries. 
 ```
@@ -138,7 +141,7 @@ bundle config unset deployment
 bundle install
 ```
 
-Step 13:
+Step 14:
 
 Copy example enviroment file and before editing this file, generate three different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY
 ```
@@ -149,7 +152,7 @@ RAILS_ENV=production bundle exec rake secret
 RAILS_ENV=production bundle exec rake secret
 ```
 
-Step 14:
+Step 15:
 
 Example of Email section of Mastodon environment. 
 ```
@@ -162,7 +165,7 @@ SMTP_PASSWORD=AReallyGo0Dpas$word
 SMTP_FROM_ADDRESS=notifications@mastodon.spotcheckit.org
 ```
 
-Step 15:
+Step 16:
 
 Create SystemD files to handle stop, start and restart of the Mastodon service. 
 ```
@@ -223,7 +226,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-Step 16:
+Step 17:
 
 Create and setup cPanel's Easy Apache reverse proxy files for web sockets. 
 ```
@@ -275,7 +278,7 @@ ProxyPass / http://localhost:3000/
 ProxyPassReverse / http://localhost:3000/
 ```
 
-Step 17:
+Step 18:
 
 Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy apache web service.  
 ```
@@ -285,7 +288,7 @@ Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy a
 ```
 
 
-Step 18:
+Step 19:
 
 Now we will change the permissions of the Mastodon install to the cPanel account owner. 
 ```
