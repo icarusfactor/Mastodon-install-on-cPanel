@@ -50,15 +50,6 @@ systemctl enable redis
 
 Step 5:
 
-Install cPanel Ruby package. The final version will be 3.0.4, but this base install is needed to be able to upgrade the language.  
-```
-yum install ea-ruby27-ruby
-rvm install "ruby-3.0.4"
-rvm use 3.0.4 --default
-```
-
-Step 6:
-
 Add the Software Collections SIG repository and install Postgresql 11 database. Although newer versions are in repo, version 11 has the development files needed to compile the Ruby postgres Gems against. 
 ```
 yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
@@ -68,16 +59,7 @@ yum --enablerepo=centos-sclo-rh install llvm-toolset-7-clang
 yum install postgresql11-server postgresql11-devel libpqxx-devel libpqxx  ea-openssl-devel
 ```
 
-Step 7:
-
-Dwnload and install NodeJS package dependency installer Yarn
-```
-cd ~
-curl -o- -L https://yarnpkg.com/install.sh | bash
-yarn install --pure-lockfile
-```
-
-Step 8:
+Step 6:
 
 Change user to postgres to setup database and then exit back to root to start and enable the database to start at boot.
 ```
@@ -88,22 +70,38 @@ systemctl enable postgresql-11
 systemctl start postgresql-11
 ```
 
-Step 8.5 :
+Step 7 :
 Login to the PostgreSQL shell:live
-Create a new user for the Mastodon instance that is able to create DB tables:
+Create a new user for the Mastodon instance that is able to create DB tables and alter to add a password:
 
 ```
 sudo -u postgres psql
-
 postgres=# CREATE USER mastodon CREATEDB;
-CREATE ROLE
+ CREATE ROLE
+postgres=# ALTER USER mastodon WITH PASSWORD 'th1s1sagr3atpa$$w0rd';
+ ALTER ROLE
 \q
-
-ALTER USER mastodon WITH PASSWORD 'jw8s0F4';
 ```
 
+Step 8:
+
+Install cPanel Ruby package. The final version will be 3.0.4, but this base install is needed to be able to upgrade the language.  
+```
+yum install ea-ruby27-ruby
+rvm install "ruby-3.0.4"
+rvm use 3.0.4 --default
+```
 
 Step 9:
+
+Dwnload and install NodeJS package dependency installer Yarn
+```
+cd ~
+curl -o- -L https://yarnpkg.com/install.sh | bash
+yarn install --pure-lockfile
+```
+
+Step 10:
 
 Now switch to the home directory of the Mastodon user and clone the application repository files from Github.
 ```
@@ -114,11 +112,11 @@ git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
 gem install bundler
 ```
 
-Step 10:
+Step 11:
 
 Change the cPanel account document root from the cPanel -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update".
 
-Step 11:
+Step 12:
 
 Make modification to Gem files for current postgresql gem that will work with Postgresaql version 11 and install needed support libaries. 
 ```
@@ -130,7 +128,7 @@ bundle config unset deployment
 bundle install
 ```
 
-Step 12:
+Step 13:
 
 Copy example enviroment file and before editing this file, generate three different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY
 ```
@@ -141,7 +139,7 @@ RAILS_ENV=production bundle exec rake secret
 RAILS_ENV=production bundle exec rake secret
 ```
 
-Step 13:
+Step 14:
 
 Example of Email section of Mastodon environment. 
 ```
@@ -154,7 +152,7 @@ SMTP_PASSWORD=AReallyGo0Dpas$word
 SMTP_FROM_ADDRESS=notifications@mastodon.spotcheckit.org
 ```
 
-Step 14:
+Step 15:
 
 Create SystemD files to handle stop, start and restart of the Mastodon service. 
 ```
@@ -215,7 +213,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-Step 15:
+Step 16:
 
 Create and setup cPanel's Easy Apache reverse proxy files for web sockets. 
 ```
@@ -267,7 +265,7 @@ ProxyPass / http://localhost:3000/
 ProxyPassReverse / http://localhost:3000/
 ```
 
-Step 16:
+Step 17:
 
 Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy apache web service.  
 ```
@@ -277,7 +275,7 @@ Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy a
 ```
 
 
-Step 17:
+Step 18:
 
 Now we will change the permissions of the Mastodon install to the cPanel account owner. 
 ```
