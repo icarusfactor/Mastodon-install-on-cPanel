@@ -28,7 +28,7 @@ Step 3:
 
 Install cPanel Nodejs package and create symlinks to binaries. 
 ```
-yum install ea-nodejs16yum install ea-nodejs16
+yum install ea-nodejs16
 
 ln -s /opt/cpanel/ea-nodejs16/lib/node_modules/npm/bin/npm-cli.js /bin/ea-npm16
 ln -s /bin/ea-npm16 /bin/npm
