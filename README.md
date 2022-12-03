@@ -187,8 +187,82 @@ Now that we will be using the email from the cPanel Exim service. We will create
 
 WHM -> cPanel -> Email -> Email Accounts -> Click "Create" -> Select subdomain "mastodon.spotcheckit.org" -> Username "notifications" -> Password Click the Set Password Now radio button "AReallyGo0Dpas$word" -> Create
 
-
 Step 16:
+Now we will run the Mastodon install from inside the live directory and fill out the install options. 
+
+```
+[root@host live]# RAILS_ENV=production bundle exec rake mastodon:setup
+
+Your instance is identified by its domain name. Changing it afterward will break things.
+Domain name: mastodon.spotcheckit.org
+
+Single user mode disables registrations and redirects the landing page to your public profile.
+Do you want to enable single user mode? No
+
+Are you using Docker to run Mastodon? no
+
+PostgreSQL host: /var/run/postgresql
+PostgreSQL port: 5432
+Name of PostgreSQL database: mastodon_production
+Name of PostgreSQL user: mastodon
+Password of PostgreSQL user: 
+Database configuration works! 🎆
+
+Redis host: localhost
+Redis port: 6379
+Redis password: 
+Redis configuration works! 🎆
+
+Do you want to store uploaded files on the cloud? No
+
+Do you want to send e-mails from localhost? yes
+E-mail address to send e-mails "from": Mastodon <notifications@mastodon.spotcheckit.org>
+Send a test e-mail with this configuration right now? Yes
+Send test e-mail to: factorf2@yahoo.com
+
+This configuration will be written to .env.production
+Save configuration? Yes
+
+Now that configuration is saved, the database schema must be loaded.
+If the database already exists, this will erase its contents.
+Prepare the database now? Yes
+Running `RAILS_ENV=production rails db:setup` ...
+
+
+Created database 'mastodon_production'
+Done!
+
+The final step is compiling CSS/JS assets.
+This may take a while and consume a lot of RAM.
+Compile the assets now? Yes
+Running `RAILS_ENV=production rails assets:precompile` ...
+
+
+yarn install v1.22.19
+[1/6] Validating package.json...
+[2/6] Resolving packages...
+[3/6] Fetching packages...
+[4/6] Linking dependencies...
+warning Workspaces can only be enabled in private projects.
+[5/6] Building fresh packages...
+[6/6] Cleaning modules...
+Done in 18.71s.
+...
+...
+Compiling...
+Compiled all packs in /home/dyount/mastodon.spotcheckit.org/live/public/packs
+Done!
+
+All done! You can now power on the Mastodon server 🐘
+
+Do you want to create an admin user straight away? Yes
+Username: admin
+E-mail: factorf2@yahoo.com
+You can login with the password: Ag00d paSSw0rd
+You can change your password once you login.
+```
+
+Step 17:
 
 Create SystemD files to handle stop, start and restart of the Mastodon service. 
 ```
@@ -249,7 +323,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-Step 17:
+Step 18:
 
 Create and setup cPanel's Easy Apache reverse proxy files for web sockets. 
 ```
@@ -301,7 +375,7 @@ ProxyPass / http://localhost:3000/
 ProxyPassReverse / http://localhost:3000/
 ```
 
-Step 18:
+Step 20:
 
 Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy apache web service.  
 ```
@@ -310,7 +384,7 @@ Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy a
 /usr/local/cpanel/scripts/restartsrv_httpd
 ```
 
-Step 19:
+Step 21:
 
 Now we will change the permissions of the Mastodon install to the cPanel account owner. 
 ```
