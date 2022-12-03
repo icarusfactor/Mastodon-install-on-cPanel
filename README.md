@@ -1,7 +1,7 @@
 Install Mastodon on CentOS7 cPanel server.
 
 Preface: 
- To get Mastodon working on a cPanel install we will work with its Easy Apache web service and use the cPanel Ruby and NodeJS packages and Apache modules, the standard FOSS packages that we will install are Postgresql 11 as the default postgres for cPanel is the outdataded 9.2, this means you have to make sure you are not using the cPanel version of Postgres, as it would make it very hard to install. We will also install Nodejs package manger called Yarn from the source package and the EPEL repository REDIS object cache package installed.  
+ To get Mastodon working on a cPanel install we will work with its Easy Apache web service and use the cPanel Ruby which will be upgraded in place after install to the version that works with current version and LTS version of NodeJS packages and Apache modules, the standard FOSS packages that we will install are Postgresql 11 as the default postgres for cPanel is the outdataded 9.2, this means you have to make sure you are not using the cPanel version of Postgres, as it would make it very hard to install. We will also install Nodejs package manger called Yarn from the source package and the EPEL repository REDIS object cache package installed.  
 
 
 Step 1:
@@ -28,7 +28,7 @@ Step 3:
 
 Install cPanel Nodejs package and create symlinks to binaries. 
 ```
-yum install ea-nodejs16
+yum install ea-nodejs16yum install ea-nodejs16
 
 ln -s /opt/cpanel/ea-nodejs16/lib/node_modules/npm/bin/npm-cli.js /bin/ea-npm16
 ln -s /bin/ea-npm16 /bin/npm
