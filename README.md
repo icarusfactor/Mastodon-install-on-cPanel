@@ -122,7 +122,10 @@ cd /home/dyount/mastodon.spotcheckit.org
 git clone https://github.com/tootsuite/mastodon.git live
 cd ./live
 git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
-gem install bundler
+gem install bundlerDB_USER=mastodon
+DB_NAME=mastodon_production
+DB_PASS=
+
 ```
 
 Step 12:
@@ -143,27 +146,44 @@ bundle install
 
 Step 14:
 
-Copy example enviroment file and before editing this file, generate three different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY
+Copy example enviroment file and before editing this file, generate four different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY
 ```
 cp .env.production.sample .env.production
 
 RAILS_ENV=production bundle exec rake secret
 RAILS_ENV=production bundle exec rake secret
+RAILS_ENV=production bundle eAxec rake secret
 RAILS_ENV=production bundle exec rake secret
 ```
-
-Step 15:
-
-Example of Email section of Mastodon environment. 
+Sections needing to be changed in .env.production file. 
+Use the database credtials we used in Step 7. We wont 
+be using Elasticsearch or S3 in this install
 ```
-# Sending mail
-# ------------
+LOCAL_DOMAIN=mastodon.spotcheckit.org
+
+DB_USER=mastodon
+DB_NAME=mastodon_production
+DB_PASS=th1s1sagr3atpa$$w0rd
+
+ES_ENABLED=false
+
+S3_ENABLED=false
+
 SMTP_SERVER=spotcheckit.org
 SMTP_PORT=587
 SMTP_LOGIN=notifications
 SMTP_PASSWORD=AReallyGo0Dpas$word
 SMTP_FROM_ADDRESS=notifications@mastodon.spotcheckit.org
 ```
+
+
+Step 15:
+
+Now that we will be using the email from the cPanel Exim service. We will create the email for mastodon in cPanel by following the breadcrumbs and make sure we use the same credtials as in the env.production file from previous step. 
+
+WHM -> cPanel -> Email -> Email Accounts -> Click "Create" -> Select subdomain "mastodon.spotcheckit.org" -> Username "notifications" -> Password Click the Set Password Now radio button "AReallyGo0Dpas$word" -> Create
+
+
 
 Step 16:
 
