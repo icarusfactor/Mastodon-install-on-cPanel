@@ -169,6 +169,11 @@ ES_ENABLED=false
 
 S3_ENABLED=false
 
+SECRET_KEY_BASE=<SECRET GENERATED> 
+OTP_SECRET=<SECRET GENERATED>
+VAPID_PRIVATE_KEY=<SECRET GENERATED>
+VAPID_PUBLIC_KEY=<SECRET GENERATED>
+
 SMTP_SERVER=spotcheckit.org
 SMTP_PORT=587
 SMTP_LOGIN=notifications
@@ -176,13 +181,11 @@ SMTP_PASSWORD=AReallyGo0Dpas$word
 SMTP_FROM_ADDRESS=notifications@mastodon.spotcheckit.org
 ```
 
-
 Step 15:
 
 Now that we will be using the email from the cPanel Exim service. We will create the email for mastodon in cPanel by following the breadcrumbs and make sure we use the same credtials as in the env.production file from previous step. 
 
 WHM -> cPanel -> Email -> Email Accounts -> Click "Create" -> Select subdomain "mastodon.spotcheckit.org" -> Username "notifications" -> Password Click the Set Password Now radio button "AReallyGo0Dpas$word" -> Create
-
 
 
 Step 16:
