@@ -122,10 +122,7 @@ cd /home/dyount/mastodon.spotcheckit.org
 git clone https://github.com/tootsuite/mastodon.git live
 cd ./live
 git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
-gem install bundlerDB_USER=mastodon
-DB_NAME=mastodon_production
-DB_PASS=th1s1sagr3atpa$$w0rd
-
+gem install bundler
 ```
 
 Step 12:
