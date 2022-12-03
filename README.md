@@ -410,3 +410,4 @@ systemctl status mastodon-streaming.service
 ```
 
 At this point you should be able to go to the URL in your browser setup for Mastodon and it will be ready to login and setup.
+I will add some scripts to make it easier to add additonal instances of Mastodon so other subdomains or accounts can have their own install. 
