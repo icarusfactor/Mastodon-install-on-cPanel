@@ -310,13 +310,28 @@ Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy a
 /usr/local/cpanel/scripts/restartsrv_httpd
 ```
 
-
 Step 19:
 
 Now we will change the permissions of the Mastodon install to the cPanel account owner. 
 ```
 cd /home/dyount/mastodon.spotcheckit.org/
 chown -R dyount. live
+```
+
+Start the SystemD and enable the three services. 
+```
+systemctl enable mastodon-web.service
+systemctl start mastodon-web.service
+systemctl status mastodon-web.service
+
+systemctl enable mastodon-sidekiq.service
+systemctl start mastodon-sidekiq.service
+systemctl status mastodon-sidekiq.service
+
+systemctl enable mastodon-streaming.service
+systemctl start mastodon-streaming.service
+systemctl status mastodon-streaming.service
+
 ```
 
 At this point you should be able to go to the URL in your browser setup for Mastodon and it will be ready to login and setup.
