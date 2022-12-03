@@ -188,6 +188,7 @@ Now that we will be using the email from the cPanel Exim service. We will create
 WHM -> cPanel -> Email -> Email Accounts -> Click "Create" -> Select subdomain "mastodon.spotcheckit.org" -> Username "notifications" -> Password Click the Set Password Now radio button "AReallyGo0Dpas$word" -> Create
 
 Step 16:
+
 Now we will run the Mastodon install from inside the live directory and fill out the install options. 
 
 ```
@@ -375,7 +376,7 @@ ProxyPass / http://localhost:3000/
 ProxyPassReverse / http://localhost:3000/
 ```
 
-Step 20:
+Step 19:
 
 Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy apache web service.  
 ```
@@ -384,7 +385,7 @@ Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy a
 /usr/local/cpanel/scripts/restartsrv_httpd
 ```
 
-Step 21:
+Step 20:
 
 Now we will change the permissions of the Mastodon install to the cPanel account owner. 
 ```
