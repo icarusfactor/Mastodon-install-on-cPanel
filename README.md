@@ -120,7 +120,7 @@ Now switch to the home directory of the Mastodon user and clone the application 
 ```
 cd /home/dyount/mastodon.spotcheckit.org
 git clone https://github.com/tootsuite/mastodon.git live
-cd ~/live
+cd ./live
 git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
 gem install bundler
 ```
