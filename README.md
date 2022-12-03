@@ -127,7 +127,7 @@ gem install bundler
 
 Step 12:
 
-Change the cPanel account document root from the cPanel -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update".
+Change the cPanel account document root from the cPanel -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update". Now when you try the url https://mastodon.spotcheckit.org it will show the raw Mastodon files instead of the subdirectory root. 
 
 Step 13:
 
