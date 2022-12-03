@@ -146,7 +146,7 @@ bundle install
 
 Step 14:
 
-Copy example enviroment file and before editing this file, generate four different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY
+Copy example enviroment file and before editing this file, generate four different secrets by running the following command three times. You will need to set these secrets in the configuration file variables RAILS_ENV,VAPID_PRIVATE_KEY,VAPID_PUBLIC_KEY We will foll out some other parts , but the install in the next step will ask as well, just make sure to get the keys installed.  
 ```
 cp .env.production.sample .env.production
 
