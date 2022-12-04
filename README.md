@@ -149,7 +149,7 @@ cp .env.production.sample .env.production
 
 RAILS_ENV=production bundle exec rake secret
 RAILS_ENV=production bundle exec rake secret
-RAILS_ENV=production bundle eAxec rake secret
+RAILS_ENV=production bundle exec rake secret
 RAILS_ENV=production bundle exec rake secret
 ```
 Sections needing to be changed in .env.production file. 
@@ -408,3 +408,106 @@ systemctl status mastodon-streaming.service
 
 At this point you should be able to go to the URL in your browser setup for Mastodon and it will be ready to login and setup.
 I will add some scripts to make it easier to add additonal instances of Mastodon so other subdomains or accounts can have their own install. 
+
+Below are the B steps to not have you repeat the above steps and do a totally reinstall once you have a base to clone from on the server and this can be repeated over and over for new domains or cPanel accounts by changing the names and increasing the port numbers by one. This would be a primary reason someone would want to install Mastodon on a cPanel server and take advantage of multiple user setups with Apache. While each user can now have their own instance , the start and stop of the service will still need to be done by root user. May find a way to have each user have this capability in future edits. 
+
+Step 7B:
+```
+I changed the user from mastodon to mastodon2
+```
+
+Step 10B:
+```
+I changed the domain name from mastodon.spotcheckit.org to mastodon2.spotcheckit.org
+```
+
+Step 11B:
+```
+Copied the live directory to the new domain. 
+cd /home/dyount/mastodon.spotcheckit.org
+cp -a ./live /home/dyount/mastodon2.spotcheckit.org/
+```
+
+Step 12B:
+```
+Change the document root to the mastodon public files. 
+New Document Root enter "mastodon2.spotcheckit.org/live/public" Click "Update".
+```
+
+Step 14B:
+```
+Create four new secret keys. 
+RAILS_ENV=production bundle exec rake secret
+RAILS_ENV=production bundle exec rake secret
+RAILS_ENV=production bundle exec rake secret
+RAILS_ENV=production bundle exec rake secret
+
+Make sure you change the database name and user to the new one the rest we will reenter on install.
+vim .env.production 
+
+DB_USER=mastodon2
+DB_NAME=mastodon2_production
+```
+
+Step 16B:
+```
+Now we will run the second instance of the Mastodon install from inside the new live directory.
+[root@host live]# RAILS_ENV=production bundle exec rake mastodon:setup
+```
+
+Step 17B:
+```
+Create SystemD files to handle stop, start and restart of the second Mastodon service.
+We can copy the systemD files to the new instance. 
+
+cp /etc/systemd/system/mastodon-web.service /etc/systemd/system/mastodon2-web.service
+Change the domain name from mastodon.spotcheckit.org to mastodon2.spotcheckit.org
+Change PORT=3000 to PORT=3001
+
+cp /etc/systemd/system/mastodon-sidekiq.service /etc/systemd/system/mastodon2-sidekiq.service
+Change the domain name from mastodon.spotcheckit.org to mastodon2.spotcheckit.org
+
+cp /etc/systemd/system/mastodon-streaming.service /etc/systemd/system/mastodon2-streaming.service
+Change the domain name from mastodon.spotcheckit.org to mastodon2.spotcheckit.org
+Change Environment="PORT=4000" to Environment="PORT=4001"
+```
+
+Step 18B:
+```
+mkdir /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/ 
+cd /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/
+vim proxy_pass.conf
+Change ports 4000 to 4001
+Change ports 3000 to 3001
+
+mkdir /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
+cd /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
+vim proxy_pass.conf
+Change ports 4000 to 4001
+Change ports 3000 to 3001
+```
+
+Step 19B:
+```
+Redo this step as is. 
+```
+
+Step 20B:
+```
+Make sure the ownership is correct to the account and start the services with new name.
+
+systemctl enable mastodon2-web.service
+systemctl start mastodon2-web.service
+systemctl status mastodon2-web.service
+
+systemctl enable mastodon2-sidekiq.service
+systemctl start mastodon2-sidekiq.service
+systemctl status mastodon2-sidekiq.service
+
+systemctl enable mastodon2-streaming.service
+systemctl start mastodon2-streaming.service
+systemctl status mastodon2-streaming.service
+```
+
+
+
