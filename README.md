@@ -127,8 +127,9 @@ gem install bundler
 
 Step 12:
 
-Change the cPanel account document root from the cPanel if its a subdomain -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update". Now when you try the url https://mastodon.spotcheckit.org it will show the raw Mastodon files instead of the subdirectory root. If the site it is not a subdomain and is the primary domain cPanel will not let you change it within the GUI you will have to edit the userdata files and restart apache and php-fpm services to make this change following the below steps.  
+Change the cPanel account document root from the cPanel if its a subdomain -> Domain  -> domain.tld -> click "Manage" button -> New Document Root enter "mastodon.spotcheckit.org/live/public" Click "Update". Now when you try the url https://mastodon.spotcheckit.org it will show the raw Mastodon files instead of the subdirectory root.
 
+If the site it is not a subdomain and is the primary domain cPanel will not let you change it within the GUI you will have to edit the userdata files and restart apache and php-fpm services to make this change following the below steps.
 ```
 vim /var/cpanel/userdata/USERNAME/DOMAIN.COM
 
@@ -525,6 +526,6 @@ systemctl status mastodon2-streaming.service
 ```
 
 Postface:
- An issue that I have ran into over time with Mastodon is that the Ruby SystemD services will use a lot of memeory, maybe even a leak over time, I have not concluded if this is so. Which may not be an issue if the server has enouogh free memeory to handle this ebb and flow of swap of main operating system cache. But if the system is low on memory you will see issues with yum actions and cPanel updates. The fix is just to restart the services which SystemD setup makes this process an easy one and could even be put in a cron tab. I dont know if all three services need to be restarted, as to keep up the primary web stream without interuption. I am still testing this setup.  
+ An issue that I have ran into over time with Mastodon is that the Ruby SystemD services will use a lot of memeory, maybe even a leak over time, I have not concluded if this is so. Which may not be an issue if the server has enough free memeory to handle this ebb and flow of swap of main operating system cache. But if the system is low on memory you will see issues with yum actions and cPanel updates. The fix is just to restart the services which SystemD setup makes this process an easy one and could even be put in a cron tab. I dont know if all three services need to be restarted, as to keep up the primary web stream without interuption. I am still testing this setup.  
 
 
