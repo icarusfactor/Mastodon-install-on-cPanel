@@ -341,8 +341,8 @@ Step 18:
 
 Create and setup cPanel's Easy Apache reverse proxy files for web sockets. 
 ```
-mkdir /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon.spotcheckit.org/ 
-cd /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon.spotcheckit.org/
+mkdir /etc/apache2/conf.d/userdata/ssl/2_4/dyount/mastodon.spotcheckit.org/ 
+cd /etc/apache2/conf.d/userdata/ssl/2_4/dyount/mastodon.spotcheckit.org/
 vim proxy_pass.conf
 
 ProxyPreserveHost On
@@ -365,8 +365,8 @@ ProxyPass / http://localhost:3000/
 ProxyPassReverse / http://localhost:3000/
 
 
-mkdir /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon.spotcheckit.org/
-cd /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon.spotcheckit.org/
+mkdir /etc/apache2/conf.d/userdata/std/2_4/dyount/mastodon.spotcheckit.org/
+cd /etc/apache2/conf.d/userdata/std/2_4/dyount/mastodon.spotcheckit.org/
 vim proxy_pass.conf
 
 ProxyPreserveHost On
@@ -394,8 +394,8 @@ Step 19:
 Add reverse proxy to apaches configuration scan,then rebuild and redstart Easy apache web service.  
 ```
 /scripts/ensure_vhost_includes --user=dyount
-/usr/local/cpanel/scripts/rebuildhttpdconf
-/usr/local/cpanel/scripts/restartsrv_httpd
+/scripts/rebuildhttpdconf
+/scripts/restartsrv_httpd
 ```
 
 Step 20:
@@ -490,14 +490,14 @@ Change Environment="PORT=4000" to Environment="PORT=4001"
 
 Step 18B:
 ```
-mkdir /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/ 
-cd /usr/local/apache/conf/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/
+mkdir /etc/apache2/conf.d/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/ 
+cd /etc/apache2/conf.d/userdata/ssl/2_4/dyount/mastodon2.spotcheckit.org/
 vim proxy_pass.conf
 Change ports 4000 to 4001
 Change ports 3000 to 3001
 
-mkdir /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
-cd /usr/local/apache/conf/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
+mkdir /etc/apache2/conf.d/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
+cd /etc/apache2/conf.d/userdata/std/2_4/dyount/mastodon2.spotcheckit.org/
 vim proxy_pass.conf
 Change ports 4000 to 4001
 Change ports 3000 to 3001
